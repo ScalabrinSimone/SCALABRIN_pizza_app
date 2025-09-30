@@ -6,7 +6,7 @@ public class Pizza
     public String ingredienti;
     public double prezzo;
 
-    @Override //Override serve per stampare quello che vogliamo perchè di base scrive l'id di base del json
+    @Override //Override serve per stampare quello che vogliamo perchè di base stampa il riferimento all'oggetto.
     public String toString()
     {
         return nome + ": " +  ingredienti + ". " + prezzo + "€";
