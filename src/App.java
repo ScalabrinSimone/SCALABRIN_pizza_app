@@ -104,4 +104,18 @@ public class App
             System.out.println("Errore: " + e.getMessage());
         }
     }
+
+    public String getMenuJson()
+    {
+        try
+        {
+            Pizza[] pizze = getMenu();
+            Gson gson = new Gson();
+            return gson.toJson(pizze); //Restituisce il menù come stringa JSON.
+        } 
+        catch (Exception e) 
+        {
+            return "[]"; //Se errore, restituisce array vuoto.
+        }
+    }
 }

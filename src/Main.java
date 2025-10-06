@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Main
 {
@@ -67,6 +69,22 @@ public class Main
                     break;
 
                 case "4": //Exit.
+                    //Salva il menù delle pizze in un file JSON nella cartella backup.
+                    try
+                    {
+                        File backupDir = new File("../backup");
+                        if (!backupDir.exists()) backupDir.mkdir(); //Crea la cartella se non esiste.
+                        String json = app.getMenuJson(); //Ottieni il JSON del menù.
+                        FileWriter writer = new FileWriter("../backup/menu_backup.json");
+                        writer.write(json);
+                        writer.close();
+                        System.out.println("Menù salvato in backup/menu_backup.json!");
+                    } 
+                    catch (Exception e)
+                    {
+                        System.out.println("Errore nel salvataggio del backup: " + e.getMessage());
+                    }
+                    
                     System.out.println("Arrivederci!");
                     return;
 
