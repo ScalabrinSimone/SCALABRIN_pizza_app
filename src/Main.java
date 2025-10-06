@@ -72,10 +72,10 @@ public class Main
                     //Salva il menù delle pizze in un file JSON nella cartella backup.
                     try
                     {
-                        File backupDir = new File("../backup");
+                        File backupDir = new File("backup");
                         if (!backupDir.exists()) backupDir.mkdir(); //Crea la cartella se non esiste.
                         String json = app.getMenuJson(); //Ottieni il JSON del menù.
-                        FileWriter writer = new FileWriter("../backup/menu_backup.json");
+                        FileWriter writer = new FileWriter("backup/menu_backup.json");
                         writer.write(json);
                         writer.close();
                         System.out.println("Menù salvato in backup/menu_backup.json!");
@@ -86,6 +86,7 @@ public class Main
                     }
 
                     System.out.println("Arrivederci!");
+                    scanner.close();
                     return;
 
                 default:
