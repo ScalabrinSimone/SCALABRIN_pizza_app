@@ -1,53 +1,107 @@
 import com.google.gson.Gson;
-import okhttp3.Headers;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
+import okhttp3.*;
 import java.io.IOException;
 
 public class App
 {
     public OkHttpClient client;
+    private String endpointString;
 
-    public App() //Costruttore su java
+    public App(String endpoint)
     {
-        client = new OkHttpClient(); //Istanziato il client
+        client = new OkHttpClient();
+        endpointString = endpoint;
     }
 
-    public void doGet() throws IOException //Se il metodo può generare eccezzioni, bisogna scriverlo nella firma
+    private Pizza[] getMenu() throws IOException
     {
         Request request = new Request.Builder()
-                .url("https://crudcrud.com/api/abc242637a6246a4bb7353d9344eb781/pizze")
+                .url(endpointString + "/pizze") //Costruisco l'endpoin in modo "dinamico".
                 .build();
 
         try (Response response = client.newCall(request).execute())
         {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-            Headers responseHeaders = response.headers();
-            for (int i = 0; i < responseHeaders.size(); i++) {
-                System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-            }
-
             Gson gson = new Gson();
-            Pizza[] pizze = gson.fromJson(response.body().string(), Pizza[].class); //Prendiamo il json per deserializzare le pizze
-
-            for (Pizza p : pizze)
-            {
-                System.out.println(p);
-            }
+            //Deserializzo la risposta JSON in un array di oggetti Pizza.
+            return gson.fromJson(response.body().string(), Pizza[].class);
         }
     }
-    public void run()
+
+    public void printMenu()
     {
         try
         {
-            doGet();
+            Pizza[] pizze = getMenu();
+            if (pizze.length == 0)
+            {
+                System.out.println("Nessuna pizza presente.");
+            } 
+            else
+            {
+                for (Pizza p : pizze)
+                {
+                    System.out.println(p); //Stampa ogni pizza, mostra anche l'ID.
+                }
+            }
         }
         catch (Exception e)
         {
-            throw new RuntimeException(e);
+            System.out.println("Errore nel recupero del menù: " + e.getMessage());
+        }
+    }
+
+    public void addPizza(Pizza pizza)
+    {
+        Gson gson = new Gson();
+        String json = gson.toJson(pizza); //Serializzo l'oggetto Pizza in JSON.
+
+        RequestBody body = RequestBody.create(json, MediaType.parse("application/json"));
+        Request request = new Request.Builder()
+                .url(endpointString + "/pizze")
+                .post(body)
+                .build();
+
+        try (Response response = client.newCall(request).execute())
+        {
+            if (!response.isSuccessful())
+            {
+                System.out.println("Errore nell'aggiunta della pizza: " + response);
+            } 
+            else
+            {
+                System.out.println("Pizza aggiunta con successo!");
+            }
+        } 
+        catch (Exception e)
+        {
+            System.out.println("Errore: " + e.getMessage());
+        }
+    }
+
+    public void deletePizza(String id)
+    {
+        //Elimina la pizza tramite il suo ID univoco.
+        Request request = new Request.Builder()
+                .url(endpointString + "/pizze/" + id)
+                .delete()
+                .build();
+
+        try (Response response = client.newCall(request).execute())
+        {
+            if (!response.isSuccessful())
+            {
+                System.out.println("Errore nell'eliminazione della pizza: " + response);
+            } 
+            else
+            {
+                System.out.println("Pizza eliminata con successo!");
+            }
+        } 
+        catch (Exception e) 
+        {
+            System.out.println("Errore: " + e.getMessage());
         }
     }
 }
