@@ -39,7 +39,7 @@ public class Main
             }
 
             System.out.println("Menu di selezione:");
-            System.out.println("\t1. Visualizza Menù.\n\t2. Nuova pizza.\n\t3. Elimina Pizza.\n\t4. Exit.\n");
+            System.out.println("\t1. Visualizza Menù.\n\t2. Nuova pizza.\n\t3. Elimina Pizza.\n\t4. Exit&Save.\n");
             System.out.println("Indichi che operazione vuole effettuare (1, 2, 3 o 4): ");
 
             switch (scanner.nextLine())
@@ -84,7 +84,7 @@ public class Main
                     {
                         System.out.println("Errore nel salvataggio del backup: " + e.getMessage());
                     }
-                    
+
                     System.out.println("Arrivederci!");
                     return;
 
