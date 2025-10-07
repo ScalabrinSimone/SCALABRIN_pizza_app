@@ -4,7 +4,7 @@ import java.io.FileWriter;
 
 public class Main
 {
-    public static void main(String[] args)
+    public static void main(String[] args) //Quando rinomino delle classi, metodi, ecc.. uso il refactor dell'IDE per modificare tutto.
     {
         boolean firstRun = true;
         Scanner scanner = new Scanner(System.in);
@@ -39,8 +39,8 @@ public class Main
             }
 
             System.out.println("Menu di selezione:");
-            System.out.println("\t1. Visualizza Menù.\n\t2. Nuova pizza.\n\t3. Elimina Pizza.\n\t4. Exit&Save.\n");
-            System.out.println("Indichi che operazione vuole effettuare (1, 2, 3 o 4): ");
+            System.out.println("\t1. Visualizza Menù.\n\t2. Visualizza Pizza.\n\t3. Nuova pizza.\n\t4. Elimina Pizza.\n\t5. Exit&Save.\n");
+            System.out.println("Indichi che operazione vuole effettuare (1, 2, 3, 4 o 5): ");
 
             switch (scanner.nextLine())
             {
@@ -48,7 +48,20 @@ public class Main
                     app.printMenu();
                     break;
 
-                case "2": //Nuova pizza.
+                case "2": //Visualizza una pizza dato l'id.
+                    System.out.println("Inserisci l'id della pizza da controllare: ");
+                    try
+                    {
+                        System.out.println("Pizza di nome: " + app.getPizza(scanner.nextLine())[0].nome + "\n");
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println("Errore nel pizza!");
+                    }
+
+
+                    break;
+                case "3": //Nuova pizza.
                     System.out.print("Nome pizza: ");
                     String nome = scanner.nextLine();
                     System.out.print("Ingredienti: ");
@@ -62,13 +75,13 @@ public class Main
                     app.addPizza(nuovaPizza);
                     break;
 
-                case "3": //Elimina Pizza.
+                case "4": //Elimina Pizza.
                     System.out.print("ID della pizza da eliminare: ");
                     String id = scanner.nextLine(); //L'ID viene mostrato tra parentesi quadre nel menù.
                     app.deletePizza(id);
                     break;
 
-                case "4": //Exit.
+                case "5": //Exit.
                     //Salva il menù delle pizze in un file JSON nella cartella backup.
                     try
                     {
