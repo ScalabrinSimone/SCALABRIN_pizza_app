@@ -52,11 +52,11 @@ public class Main
                     System.out.println("Inserisci l'id della pizza da controllare: ");
                     try
                     {
-                        System.out.println("Pizza di nome: " + app.getPizza(scanner.nextLine())[0].nome + "\n");
+                        System.out.println("Pizza di nome: " + app.getPizza(scanner.nextLine()).nome + "\n");
                     }
                     catch (Exception e)
                     {
-                        System.out.println("Errore nel pizza!");
+                        System.out.println("Errore nel recupero della pizza!");
                     }
 
 

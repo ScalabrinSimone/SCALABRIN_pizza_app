@@ -30,7 +30,7 @@ public class App
         }
     }
 
-    public Pizza[] getPizza(String id) throws IOException
+    public Pizza getPizza(String id) throws IOException
     {
         Request request = new Request.Builder()
                 .get()
@@ -42,8 +42,8 @@ public class App
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
             Gson gson = new Gson();
-            //Deserializzo la risposta JSON in un array di oggetti Pizza.
-            return gson.fromJson(response.body().string(), Pizza[].class);
+            //Deserializzo la risposta JSON in un oggetto Pizza.
+            return gson.fromJson(response.body().string(), Pizza.class);
         }
     }
 
