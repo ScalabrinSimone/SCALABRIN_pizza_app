@@ -11,27 +11,35 @@ Progetto per allenarsi all'uso del GET POST e PUT delle API: Gestisce il menù d
 
 ## Utilizzo
 
-1. **Avvio**
+0. **Avvio**
    - Inserisci il tuo endpoint personale di CRUDCRUD.
-2. **Menu CLI**
+0.5. **Menu CLI**
    ```
    1. Visualizza Menù.
-   2. Nuova pizza.
-   3. Elimina Pizza.
-   4. Exit.
+   2. Visualizza Pizza.
+   3. Nuova pizza.
+   4. Elimina Pizza.
+   5. Save&Exit.
    ```
-3. **Visualizza Menù**
+
+1. **Visualizza Menù**
    - Mostra tutte le pizze con nome, ingredienti, prezzo e ID.
    ```
    id:[64f...abc] Margherita: pomodoro, mozzarella. 5.0EUR.
    id:[64f...def] Diavola: pomodoro, mozzarella, salame piccante. 6.5EUR.
    ```
-4. **Aggiungi Pizza**
+2. **Visualizza Pizza**
+   ```
+   Inserisci l'id della pizza: _id pizza_
+   Nome della pizza: _nome pizza_
+   ```
+3. **Aggiungi Pizza**
    - Inserisci nome, ingredienti e prezzo.
-5. **Elimina Pizza**
+4. **Elimina Pizza**
    - Inserisci l'ID mostrato nel menù.
-6. **Exit**
-   - Salva automaticamente il menù in `backup/menu_backup.json`.
+5. **Save&Exit**
+   - Salva automaticamente il menù in `backup/menu_backup.json` ed esce dal programma.
+   - **NOTA**: Se si vuole uscire senza salvare premere `ctl + c` per uscire in modo forzato dal programma.
 
 ## Backup
 
