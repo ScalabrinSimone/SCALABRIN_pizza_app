@@ -52,12 +52,13 @@ Progetto per allenarsi all'uso del GET POST e PUT delle API: Gestisce il menù d
 Benvenuto nella pizzeria piú fiera del mondo!
 
 Menu di selezione:
-    1. Visualizza Menù.
-    2. Nuova pizza.
-    3. Elimina Pizza.
-    4. Exit.
+   1. Visualizza Menù.
+   2. Visualizza Pizza.
+   3. Nuova pizza.
+   4. Elimina Pizza.
+   5. Save&Exit.
 
-Indichi che operazione vuole effettuare (1, 2, 3 o 4): 1
+Indichi che operazione vuole effettuare (1, 2, 3, 4 o 5): 1
 
 id:[64f...abc] Margherita: pomodoro, mozzarella. 5.0EUR.
 id:[64f...def] Diavola: pomodoro, mozzarella, salame piccante. 6.5EUR.
