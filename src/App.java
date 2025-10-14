@@ -3,6 +3,7 @@ import de.vandermeer.asciitable.AsciiTable;
 import okhttp3.*;
 import java.io.IOException;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -155,7 +156,17 @@ public class App
         //Libreria:
         String DB_URL = "jdbc:sqlite:pizza.db";
 
-        //Query (il triplo apico """ serve per fare righe multiriga) quando sono con java 21 posso usare quello in commento.
+        
+        try
+        {
+           java.sql.Connection conn = java.sql.DriverManager.getConnection(DB_URL); //Specifichiamo java.sql.ecc... per evitare conflitti tra libreria OKHTTP3 e JAVASQL.
+
+           if (conn != null) 
+           {
+                System.out.println("Connessione al Database avvenute con successo.");
+           }
+
+           //Query (il triplo apico """ serve per fare righe multiriga) quando sono con java 21 posso usare quello in commento.
         String sqlCreateTable = /* """ 
                 CREATE TABLE IF NOT EXISTS pizze (
                     id VARCHAR(50) PRIMARY KEY ,
@@ -172,19 +183,20 @@ public class App
                 ");";
 
                 //Dopo aver eseguito il codice su jetbrains premere il pulsante database a destra, data source e sqlite. Poi mettiamo il percorso del file pizza.db.
-        try
-        {
-           java.sql.Connection conn = java.sql.DriverManager.getConnection(DB_URL); //Specifichiamo java.sql.ecc... per evitare conflitti tra libreria OKHTTP3 e JAVASQL.
-
-           if (conn != null) 
-           {
-                System.out.println("Connessione al Database avvenute con successo.");
-           }
            
            //Di java.beans
            Statement statement = conn.createStatement();
            statement.execute(sqlCreateTable); //Esegue la query di creazione tabella.
-           System.out.println();
+           System.out.println("La tabella pizze è stata creata con successo.");
+
+           String sqlinsert = "INSERT INTO pizze VALUES (?, ?, ?, ?);";
+
+           PreparedStatement insertStatement = conn.prepareStatement(sqlinsert);
+            insertStatement.setString(1, "abcdef");
+            insertStatement.setString(1, "Margherita");
+            insertStatement.setString(1, "Mozzarella, Pomodoro");
+            insertStatement.setDouble(1, 6);
+            insertStatement.execute();
         }
         catch (SQLException e)
         {
