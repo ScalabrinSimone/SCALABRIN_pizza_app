@@ -2,6 +2,8 @@ import com.google.gson.Gson;
 import de.vandermeer.asciitable.AsciiTable;
 import okhttp3.*;
 import java.io.IOException;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class App
 {
@@ -143,6 +145,27 @@ public class App
         catch (Exception e) 
         {
             return "[]"; //Se errore, restituisce array vuoto.
+        }
+    }
+
+    //INSTALLA LIBRERIA CON MAVEC: org.xerial:sqlite-jdbc:3.46.0.1
+    public void testSqlite()
+    {
+        //Libreria:
+        String DB_URL = "jdbc:sqlite:pizza.db";
+
+        try
+        {
+           java.sql.Connection conn = java.sql.DriverManager.getConnection(DB_URL); //Specifichiamo java.sql.ecc... per evitare conflitti tra libreria OKHTTP3 e JAVASQL.
+
+           if (conn != null) 
+           {
+                System.out.println("Connessione al Database avvenute con successo.");
+           }
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
         }
     }
 }
