@@ -171,6 +171,7 @@ public class App
                 "    prezzo DOUBLE\n" +
                 ");";
 
+                //Dopo aver eseguito il codice su jetbrains premere il pulsante database a destra, data source e sqlite.
         try
         {
            java.sql.Connection conn = java.sql.DriverManager.getConnection(DB_URL); //Specifichiamo java.sql.ecc... per evitare conflitti tra libreria OKHTTP3 e JAVASQL.
