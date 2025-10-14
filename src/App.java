@@ -4,6 +4,7 @@ import okhttp3.*;
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class App
 {
@@ -154,6 +155,22 @@ public class App
         //Libreria:
         String DB_URL = "jdbc:sqlite:pizza.db";
 
+        //Query (il triplo apico """ serve per fare righe multiriga) quando sono con java 21 posso usare quello in commento.
+        String sqlCreateTable = /* """ 
+                CREATE TABLE IF NOT EXISTS pizze (
+                    id VARCHAR(50) PRIMARY KEY ,
+                    nome VARCHAR(50),
+                    ingredienti VARCHAR(200),
+                    prezzo DOUBLE
+                );
+                """; */
+                "CREATE TABLE IF NOT EXISTS pizze (\n" +
+                "    id VARCHAR(50) PRIMARY KEY ,\n" +
+                "    nome VARCHAR(50),\n" +
+                "    ingredienti VARCHAR(200),\n" +
+                "    prezzo DOUBLE\n" +
+                ");";
+
         try
         {
            java.sql.Connection conn = java.sql.DriverManager.getConnection(DB_URL); //Specifichiamo java.sql.ecc... per evitare conflitti tra libreria OKHTTP3 e JAVASQL.
@@ -162,6 +179,11 @@ public class App
            {
                 System.out.println("Connessione al Database avvenute con successo.");
            }
+           
+           //Di java.beans
+           Statement statement = conn.createStatement();
+           statement.execute(sqlCreateTable); //Esegue la query di creazione tabella.
+           System.out.println();
         }
         catch (SQLException e)
         {
